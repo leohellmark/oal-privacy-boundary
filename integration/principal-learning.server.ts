@@ -1,6 +1,7 @@
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import { missingDatabaseColumn, missingDatabaseTable } from "@/lib/supabase-schema";
-import { consultationPolicy, preferenceSuggestion, type WorkPreferenceCategory } from "./principal-learning";
+import { createHash } from "node:crypto";
+import { consultationPolicy, exactQuoteSpan, preferenceSuggestion, type WorkPreferenceCategory } from "./principal-learning";
 import { containsCredential } from "../../packages/oal-privacy-boundary/src/index";
 
 const db = supabaseAdmin as unknown as { from: (table: string) => any };
@@ -37,11 +38,15 @@ export async function suggestPrincipalWorkPreference(input: {
   if (messageError || !message) {
     return { state: "invalid_source" as const };
   }
+  const span = exactQuoteSpan(String(message.content ?? ""), suggestion.source_excerpt);
+  if (!span) return { state: "invalid_source" as const };
   const { data: created, error } = await db.from("principal_work_preferences").insert({
     user_id: input.userId, workspace_id: input.workspaceId,
     category: suggestion.category, statement: suggestion.statement,
     origin: "agent_suggestion", source_message_id: message.id,
-    source_excerpt: suggestion.source_excerpt, status: "candidate",
+    source_offset: span.offset, source_length: span.length,
+    source_sha256: createHash("sha256").update(suggestion.source_excerpt).digest("hex"),
+    status: "candidate",
   }).select("id").single();
   if (missingDatabaseTable(error, "principal_work_preferences")) return { state: "disabled" as const };
   if (error?.code === "23505") return { state: "already_suggested" as const };
@@ -72,7 +77,7 @@ export async function addPrincipalWorkPreference(input: {
   const { data, error } = await db.from("principal_work_preferences").insert({
     user_id: input.userId, workspace_id: input.workspaceId,
     category: input.category, statement: input.statement,
-    origin: "user_entry", source_message_id: null, source_excerpt: null,
+    origin: "user_entry", source_message_id: null,
     status: "confirmed",
   }).select("id").single();
   if (error || !data) throw new Error(error?.message ?? "Could not save your work preference.");

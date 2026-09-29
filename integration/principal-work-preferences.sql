@@ -11,14 +11,19 @@ CREATE TABLE IF NOT EXISTS public.principal_work_preferences (
   statement text NOT NULL CHECK (length(statement) BETWEEN 12 AND 400),
   origin text NOT NULL CHECK (origin IN ('user_entry', 'agent_suggestion')),
   source_message_id uuid REFERENCES public.orchestrator_messages(id) ON DELETE CASCADE,
-  source_excerpt text,
+  source_offset integer,
+  source_length integer,
+  source_sha256 text,
   status text NOT NULL CHECK (status IN ('candidate', 'confirmed', 'dismissed')),
   created_at timestamptz NOT NULL DEFAULT now(),
   updated_at timestamptz NOT NULL DEFAULT now(),
   CONSTRAINT principal_preference_origin CHECK (
-    (origin = 'user_entry' AND source_message_id IS NULL AND source_excerpt IS NULL AND status = 'confirmed')
-    OR (origin = 'agent_suggestion' AND source_message_id IS NOT NULL AND source_excerpt IS NOT NULL
-      AND length(source_excerpt) BETWEEN 10 AND 500)
+    (origin = 'user_entry' AND source_message_id IS NULL AND source_offset IS NULL
+      AND source_length IS NULL AND source_sha256 IS NULL AND status = 'confirmed')
+    OR (origin = 'agent_suggestion' AND source_message_id IS NOT NULL
+      AND source_offset IS NOT NULL AND source_offset >= 0
+      AND source_length IS NOT NULL AND source_length BETWEEN 10 AND 500
+      AND source_sha256 IS NOT NULL AND source_sha256 ~ '^[0-9a-f]{64}$')
   ),
   UNIQUE (user_id, workspace_id, source_message_id, statement)
 );
@@ -35,9 +40,9 @@ BEGIN
   END IF;
   IF TG_OP = 'UPDATE' THEN
     IF (NEW.user_id, NEW.workspace_id, NEW.category, NEW.statement, NEW.origin,
-        NEW.source_message_id, NEW.source_excerpt) IS DISTINCT FROM
+        NEW.source_message_id, NEW.source_offset, NEW.source_length, NEW.source_sha256) IS DISTINCT FROM
        (OLD.user_id, OLD.workspace_id, OLD.category, OLD.statement, OLD.origin,
-        OLD.source_message_id, OLD.source_excerpt)
+        OLD.source_message_id, OLD.source_offset, OLD.source_length, OLD.source_sha256)
        OR (OLD.status <> 'candidate' AND NEW.status IS DISTINCT FROM OLD.status)
        OR (OLD.origin = 'user_entry' AND NEW.status IS DISTINCT FROM OLD.status) THEN
       RAISE EXCEPTION 'Saved preference provenance and confirmed values are immutable; delete and add a correction';
@@ -58,7 +63,9 @@ BEGIN
     IF v_message.role IS DISTINCT FROM 'user'
       OR v_message.workspace_id IS DISTINCT FROM NEW.workspace_id
       OR v_message.user_id IS DISTINCT FROM NEW.user_id
-      OR position(NEW.source_excerpt in v_message.content) = 0 THEN
+      OR NEW.source_offset + NEW.source_length > length(v_message.content)
+      OR encode(sha256(convert_to(substring(v_message.content from NEW.source_offset + 1
+        for NEW.source_length), 'UTF8')), 'hex') IS DISTINCT FROM NEW.source_sha256 THEN
       RAISE EXCEPTION 'Suggested preference lacks the cited user message';
     END IF;
   END IF;

@@ -1,22 +1,23 @@
 {
   "schema_version": 1,
-  "source_commit": "3addbbb0941525d49b8a2d8adcf113bfc6050d72",
-  "private_boundary_sha256": "5b0494fe3a1e46de8ca52a980e717f640cb8ecad6b1a38baf78e2b8347883f89",
-  "exported_at": "2026-09-29T14:56:18.097Z",
+  "source_commit": "94d3586a31f66007d6283ab7d7729efd179585d7",
+  "private_boundary_sha256": "37c82c2fccac68aa33ef3e17567908a4b6db2a2b88167097937c531a19ef64f7",
+  "exported_at": "2026-09-29T16:46:02.367Z",
   "signed_production_build": false,
   "files": {
     "package.json": "2cddf88c7bc8dc1ed063165b61a6c83aba7de7c72f96946cd24cb5648d76166f",
     "README.md": "413f343b76368e7a34b5901812babab7028e73cac20dea585296d1c2aa684cfe",
     "LICENSE": "a20a1bf9bbaf9f824b3610feac3324b56a6493ac81c9aa86ecef63929a30b7f4",
-    "RESEARCHER_GUIDE.md": "2d7f0acd5b1171370c7fdaef13dd83154707579b7a177a8062b2be82b44a42e8",
+    "RESEARCHER_GUIDE.md": "f3a89d0b3d8781b42757a8f4fe6d7d2bc9a62c102ab87c6b1af43b41ddca3c32",
     "attest.ts": "4ead5032ba9fe190c6393d1504042a6c84baf30efc14f1d1ba49ec538f39b315",
-    "src/index.ts": "061f50a8e77f49fd553d4ae31119f2b9f3b02c760cbf6cd9c6829372bb817743",
+    "src/index.ts": "87e5c0a1bda169cbde2a7e16bc8a302bf7d9bc5dd8d5a49daebde531d91c7d29",
     "src/index.test.ts": "ab806f50471751ec2098f11d9db42b46a176fde8a4bb90d3d5a8a6052cf93517",
     "integration/managed-agents-egress.server.ts": "01324e1ca99735a1afcb0023501cac231d79e907fa8792bdf83269e5f62df8d5",
     "integration/check-privacy-egress.ts": "fb15db4f2161bedc99cf171aaca897c42c08ae20f6e727a3a1a4ab408ae1f797",
-    "integration/principal-learning.ts": "ee4b9b92785574b9beb248f4e1a8896fa2f71f3d3bda641c89ad8151f130c9f2",
-    "integration/principal-learning.server.ts": "51cbb568b087bee655fb352e6fd0b7f55fc066eedf1c3a54d0a5ac791411b9f8",
-    "integration/principal-learning.test.ts": "ffe3e2f6c4af92b88ff36a6541e6f355e00e7c9da4d47fc020f78e1d4e86edee",
-    "integration/principal-work-preferences.sql": "07363c3bf96bea679d9d5051533809ead7eb7bc3f001c326491f768185eaf42d"
+    "integration/principal-learning.ts": "99f2f8a10ededf41240b3ee5493dc898061210838589c55628f34eff6d0d60b0",
+    "integration/principal-learning.server.ts": "dc7c24191f0db395e6cc96929831e5c625e6bfbad841efb1c9873b9a34bee3a4",
+    "integration/principal-learning.test.ts": "b3bd1f5e554c18275f1b915bdc56353e9b9e6add4aaf90241cc19d8a36ff4e10",
+    "integration/principal-learning.functions.ts": "7451a3c9e11472be50de29a18381dcbbc559b454b8879e2f8cdc531f8471864d",
+    "integration/principal-work-preferences.sql": "bfc4f9b93c2535ff2a664f3d13eb1d255d9eb1cad441ebab4f80c318f5e0793f"
   }
 }

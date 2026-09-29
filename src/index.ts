@@ -4,7 +4,7 @@
  * repository mount or an agent's own tools. Those surfaces need separate
  * disclosure and network controls.
  */
-export const PRIVACY_POLICY_VERSION = "2026-09-29.2";
+export const PRIVACY_POLICY_VERSION = "2026-09-29.3";
 
 export const DATA_TRANSFERS = {
   claude_message: {

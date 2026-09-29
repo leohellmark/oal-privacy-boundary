@@ -14,6 +14,19 @@ export function validatesQuotedPreference(message: { role: string; content: stri
   return message.role === "user" && message.content.includes(quote);
 }
 
+/** PostgreSQL substring positions count Unicode code points, while JS string
+ * offsets count UTF-16 units. Keep the provenance span portable across both. */
+export function exactQuoteSpan(content: string, quote: string) {
+  const index = content.indexOf(quote);
+  if (index < 0) return null;
+  return { offset: Array.from(content.slice(0, index)).length, length: Array.from(quote).length };
+}
+
+export function quoteAtSpan(content: string, offset: number, length: number) {
+  if (!Number.isSafeInteger(offset) || offset < 0 || !Number.isSafeInteger(length) || length < 0) return null;
+  return Array.from(content).slice(offset, offset + length).join("");
+}
+
 export type WorkPreferenceCategory = z.infer<typeof workPreferenceCategory>;
 
 /** Candidate statements are untrusted until the principal confirms them.

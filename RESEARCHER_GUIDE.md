@@ -20,6 +20,9 @@ or deployment secrets.
 - `integration/principal-learning.*` and the preference migration: the
   application-owned, opt-in work-preference path. Agent suggestions must cite
   an actual user message and remain candidates until the user confirms them.
+  The database stores a message reference, text span and digest rather than
+  another copy of the cited words. The exported server function shows the
+  authenticated review, export and deletion path.
   Only confirmed preferences from the selected mission are returned to Claude.
 
 Run `bun install`, then `bun test src/index.test.ts integration/principal-learning.test.ts` in this directory. Verify each file hash in
