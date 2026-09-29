@@ -4,7 +4,7 @@
  * repository mount or an agent's own tools. Those surfaces need separate
  * disclosure and network controls.
  */
-export const PRIVACY_POLICY_VERSION = "2026-09-29.1";
+export const PRIVACY_POLICY_VERSION = "2026-09-29.2";
 
 export const DATA_TRANSFERS = {
   claude_message: {
@@ -21,6 +21,11 @@ export const DATA_TRANSFERS = {
     destination: "Anthropic Managed Agents",
     purpose: "Return the observed result of an approved tool call",
     categories: ["tool output", "opaque tool call identifier"],
+  },
+  principal_work_preference: {
+    destination: "Anthropic Managed Agents",
+    purpose: "Advise the Secretary on a work choice in the same selected mission, only when the user enables personal learning",
+    categories: ["user-confirmed work preference", "preference category", "opaque preference identifier"],
   },
   github_repository: {
     destination: "GitHub and the Anthropic session sandbox",
@@ -46,7 +51,7 @@ const SECRET_KEY = /(?:authorization|cookie|password|passwd|secret|token|credent
 const SECRET_TEXT_TEST = /\b(?:sk-ant-|sk-|ghp_|ghs_|ghu_|gho_|github_pat_|whsec_)[A-Za-z0-9_-]{12,}\b/i;
 const SECRET_TEXT = /\b(?:sk-ant-|sk-|ghp_|ghs_|ghu_|gho_|github_pat_|whsec_)[A-Za-z0-9_-]{12,}\b/gi;
 
-function containsCredential(value: unknown, depth = 0): boolean {
+export function containsCredential(value: unknown, depth = 0): boolean {
   if (depth > 12) return true;
   if (typeof value === "string") return SECRET_TEXT_TEST.test(value) || /\bBearer\s+[A-Za-z0-9._~-]{20,}\b/i.test(value);
   if (Array.isArray(value)) return value.some((item) => containsCredential(item, depth + 1));

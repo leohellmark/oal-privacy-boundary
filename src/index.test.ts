@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test";
-import { auditedClaudeFetch, claudeUserMessage, redactDiagnostics } from "./index";
+import { auditedClaudeFetch, claudeUserMessage, containsCredential, redactDiagnostics } from "./index";
 import { generateKeyPairSync } from "node:crypto";
 import { boundaryDigest, signManifest, verifyManifest, type PrivacyManifest } from "../attest";
 
@@ -21,6 +21,11 @@ test("diagnostics remove known credential fields and token shapes", () => {
 
 test("a pasted credential cannot become a Claude prompt", () => {
   expect(() => claudeUserMessage({ text: "Use ghp_abcdefghijklmnopqrstuvwxyz in my app", runId: "18e87baa-9761-4cef-a330-3bd71b8e7c8d" })).toThrow("Credentials must be connected securely");
+});
+
+test("credential-shaped work preference text is refused before storage", () => {
+  expect(containsCredential("Prefer short progress updates.")).toBe(false);
+  expect(containsCredential("Use ghp_abcdefghijklmnopqrstuvwxyz as the project token.")).toBe(true);
 });
 
 test("audited transport blocks off-destination calls and leaked tool credentials", async () => {

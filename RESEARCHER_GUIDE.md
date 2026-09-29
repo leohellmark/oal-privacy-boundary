@@ -17,8 +17,12 @@ or deployment secrets.
 - `integration/check-privacy-egress.ts`: the private build's direct-client
   source check. It is provided for review, but needs the full private tree to
   run against every call site.
+- `integration/principal-learning.*` and the preference migration: the
+  application-owned, opt-in work-preference path. Agent suggestions must cite
+  an actual user message and remain candidates until the user confirms them.
+  Only confirmed preferences from the selected mission are returned to Claude.
 
-Run `bun test src/index.test.ts` in this directory. Verify each file hash in
+Run `bun install`, then `bun test src/index.test.ts integration/principal-learning.test.ts` in this directory. Verify each file hash in
 `source-manifest.json` against the exact bytes. The manifest's `source_commit`
 identifies the private app commit from which the allowlisted files were copied.
 `private_boundary_sha256` is the digest of the original package directory;
