@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "source_commit": "4038ca2f0891760f910e3107f415dd0200fc3c34",
+  "private_boundary_sha256": "c4174b6aee7e291104ef604079d389f9acd4231142cb7c41ed7e78de4f7f2396",
+  "exported_at": "2026-09-29T10:55:23.244Z",
+  "signed_production_build": false,
+  "files": {
+    "package.json": "67b7f8625cc764b791d699006ef78f3557eb34f0302228cd073e95eff66232db",
+    "README.md": "413f343b76368e7a34b5901812babab7028e73cac20dea585296d1c2aa684cfe",
+    "LICENSE": "a20a1bf9bbaf9f824b3610feac3324b56a6493ac81c9aa86ecef63929a30b7f4",
+    "RESEARCHER_GUIDE.md": "bed0cc69e73ffbad41417bf78a97f2231f0815044bf4243f5c1ed50076c6f1e4",
+    "attest.ts": "4ead5032ba9fe190c6393d1504042a6c84baf30efc14f1d1ba49ec538f39b315",
+    "src/index.ts": "980e4e14fdc1043874e8de0a580d1cbb7eb94bfe88fb3b8ab36be693302327cb",
+    "src/index.test.ts": "923db4daedfddb3bf63740300289fd7ce9c30fefe0e5e6c366de721a6f3c8dc3",
+    "integration/managed-agents-egress.server.ts": "01324e1ca99735a1afcb0023501cac231d79e907fa8792bdf83269e5f62df8d5",
+    "integration/check-privacy-egress.ts": "fb15db4f2161bedc99cf171aaca897c42c08ae20f6e727a3a1a4ab408ae1f797"
+  }
+}
