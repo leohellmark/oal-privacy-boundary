@@ -236,7 +236,7 @@
     },
     {
       "method": "messages.create",
-      "mentioned_in_files": 2
+      "mentioned_in_files": 3
     }
   ]
 }

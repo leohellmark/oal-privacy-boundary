@@ -4,7 +4,7 @@
  * repository mount or an agent's own tools. Those surfaces need separate
  * disclosure and network controls.
  */
-export const PRIVACY_POLICY_VERSION = "2026-10-19.1";
+export const PRIVACY_POLICY_VERSION = "2026-10-19.2";
 
 export const DATA_TRANSFERS = {
   google_read_to_claude: {
@@ -107,6 +107,11 @@ export const DATA_TRANSFERS = {
     purpose: "Suggest what the owner might say next, when the owner opens the suggestions",
     categories: ["the last 12 messages of the conversation, each clipped to 700 characters"],
   },
+  claude_standard_classification: {
+    destination: "Anthropic Messages API",
+    purpose: "Optional (off unless the operator enables it): decide whether a new chat's goal is demanding, so its lead model can be chosen",
+    categories: ["the first 2,000 characters of the goal the owner wrote when starting the chat"],
+  },
   quality_judging_tool: {
     destination: "Anthropic Messages API",
     purpose: "Developer tool, run only by the owner on chats they downloaded: grade whether the team finished the work",
@@ -152,7 +157,7 @@ export const CLAUDE_ENDPOINTS: readonly ClaudeEndpoint[] = [
   { id: "files (read, delete)", shown: "/v1/files, /v1/files/{id}, /v1/files/{id}/content", methods: ["GET", "DELETE"], path: route(`/v1/files(?:/${ANY}(?:/content)?)?`), direction: "read", transfers: [] },
   { id: "deployments", shown: "/v1/deployments, /v1/deployments/{id}, …/archive, …/pause, …/unpause", methods: ["GET", "POST", "PATCH", "DELETE"], path: route(`/v1/deployments(?:/${ANY}(?:/(?:archive|pause|unpause))?)?`), direction: "send", transfers: ["claude_scheduled_routine"] },
   { id: "deployment runs", shown: "/v1/deployment_runs, /v1/deployment_runs/{id}", methods: ["GET"], path: route(`/v1/deployment_runs(?:/${ANY})?`), direction: "read", transfers: [] },
-  { id: "messages", shown: "/v1/messages, /v1/messages/count_tokens", methods: ["POST"], path: route(`/v1/messages(?:/count_tokens)?`), direction: "send", transfers: ["claude_next_message_suggestions", "quality_judging_tool"] },
+  { id: "messages", shown: "/v1/messages, /v1/messages/count_tokens", methods: ["POST"], path: route(`/v1/messages(?:/count_tokens)?`), direction: "send", transfers: ["claude_next_message_suggestions", "claude_standard_classification", "quality_judging_tool"] },
   { id: "models", shown: "/v1/models, /v1/models/{id}", methods: ["GET"], path: route(`/v1/models(?:/${ANY})?`), direction: "read", transfers: [] },
   { id: "workload identity", shown: "/v1/oauth/token", methods: ["POST"], path: route(`/v1/oauth/token`), direction: "auth", transfers: ["provider_authentication"] },
   { id: "memory consolidation", shown: "/v1/dreams, /v1/dreams/{id}", methods: ["GET", "POST"], path: route(`/v1/dreams(?:/${ANY})?`), direction: "send", transfers: ["claude_memory_consolidation"] },
