@@ -52,7 +52,7 @@ Two checks run in the private application's build and are included for review in
 - **The build check now covers all of `src/` and `scripts/`**, not three folders, and refuses the SDK in browser-reachable code.
 - **The package declares no runtime dependencies**; tests need the provider SDK and `zod` (dev only).
 - **`verify.ts`, `transfers.ts` and `inventory.json` are new.**
-- **The policy version is `2026-10-19.3`.** It is part of the source and changes when a transfer or a rule changes.
+- **The policy version is `2026-10-19.4`.** It is part of the source and changes when a transfer or a rule changes.
 
 ## The opt-in work-preference path
 
