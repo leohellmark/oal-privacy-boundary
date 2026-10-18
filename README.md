@@ -1,35 +1,38 @@
 # Oal privacy boundary
 
-This is the source of Oal's *application-side data minimisation* policy. It
-constructs the user message Oal sends to Claude Managed Agents, scrubs
-diagnostic values, and supplies the transport used by Oal's SDK clients. That
-transport permits only `https://api.anthropic.com` and refuses credential-shaped
-content in conversation events, including tool results. The build runs a source
-check that rejects direct SDK client construction outside the transport factory.
-The source is deliberately small enough to audit.
+The code that decides what Oal sends to its AI model provider, published so that anyone can read it, run its tests and check our claims against the real source instead of a description.
 
-The module alone does **not** prove what code is deployed, what a connected
-provider does with data, or what an agent reads through its own tools. Oal must
-publish a reproducible build digest and a signed deployment attestation before
-claiming that a production deployment runs an audited version. Repository
-mounts and agent tool access are separate disclosures and controls. The source
-check is a guard against known direct call patterns, not a proof that all
-possible runtime paths or third-party packages have been inspected. A release
-still needs network observation and deployment attestation.
+What Oal promises, and what this code enforces:
 
-Run `bun test packages/oal-privacy-boundary` from the repository root.
+- **Only what is declared goes out.** Every transfer is written down in `src/index.ts` (`DATA_TRANSFERS`): where it goes, why, and which kinds of data it carries. Every provider request path the application may call is listed too (`CLAUDE_ENDPOINTS`).
+- **Credentials never go into prompts.** Credential-shaped text (API keys, access tokens, private keys, webhook URLs and links with a password in them) is refused in messages, agent instructions, session configuration, memory writes and suggestion requests. It recognises common formats; it is a guard against accidents, not a promise to catch every secret. A secret you save for a site goes into a write-only vault, never into a conversation.
+- **One audited door.** Every request leaves through one transport that allows a single destination (the model provider's API host, named in the code), follows no redirect elsewhere, and checks the content above. A build check fails if any other code tries to build its own provider client.
+- **Diagnostics are scrubbed.** Anything Oal stores for debugging has credential-shaped text removed.
 
-For a release, publish this directory and its source commit in a public read-only
-repository. Sign the built worker with an Ed25519 release key kept outside this
-repository:
+What this does **not** prove: what is deployed right now, what the provider does with data after it arrives, or what an agent reads through a tool you connected. Those are separate disclosures. `RESEARCHER_GUIDE.md` lists exactly what is checked, how, and what is left.
+
+## Run it
 
 ```sh
-bun packages/oal-privacy-boundary/attest.ts create path/to/worker.js path/to/attestation.json path/to/private.pem
-bun packages/oal-privacy-boundary/attest.ts verify path/to/worker.js path/to/attestation.json path/to/trusted-public.pem
+bun install
+bun test           # credential rules, transport rules, the endpoint list, strict mode
+bun verify.ts      # checks every file here against source-manifest.json (SHA-256)
+bun transfers.ts   # prints the declared transfers and request paths, generated from the source
 ```
 
-Researchers must obtain the public key through an independent trusted channel.
-The manifest checks source and build bytes, but a real deployment also needs
-an independently observed network trace and a signed association between this
-build digest and the deployed Cloudflare worker version. No release is marked
-verified until those checks and the connection-specific disclosures are done.
+## What is here
+
+| Path | What it is |
+| --- | --- |
+| `src/index.ts` | The boundary itself |
+| `src/index.test.ts` | Executable examples of what is accepted and refused |
+| `verify.ts`, `transfers.ts`, `attest.ts` | Manifest check, documentation generator, build attestation format |
+| `source-manifest.json` | SHA-256 of every file, the policy version, and the private commit the files were copied from |
+| `inventory.json` | Outside host names and provider SDK methods that Oal's source mentions, for comparing with a network trace. It names what the code mentions; it does not prove what runs |
+| `integration/` | Files copied from Oal's application for review: the one place a provider client is built, the build check, the test that every provider call is declared, and the opt-in work-preference path. They import private modules, so they are for reading rather than running |
+
+## Status
+
+This is a source publication. No build of Oal has been signed and tied to a deployment yet, so production has not been verified by this repository alone; the accurate statement is that the boundary's source is open for inspection. See the guide for what a full verification would need.
+
+MIT licensed. If you find a request, destination or kind of data that Oal sends and this code does not declare, please open an issue.

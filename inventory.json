@@ -1,0 +1,242 @@
+{
+  "destinations": [
+    {
+      "host": "accounts.google.com",
+      "mentioned_in_files": 1
+    },
+    {
+      "host": "api.anthropic.com",
+      "mentioned_in_files": 1
+    },
+    {
+      "host": "api.github.com",
+      "mentioned_in_files": 1
+    },
+    {
+      "host": "calendar.google.com",
+      "mentioned_in_files": 2
+    },
+    {
+      "host": "docs.google.com",
+      "mentioned_in_files": 6
+    },
+    {
+      "host": "docs.googleapis.com",
+      "mentioned_in_files": 1
+    },
+    {
+      "host": "github.com",
+      "mentioned_in_files": 10
+    },
+    {
+      "host": "gmail.googleapis.com",
+      "mentioned_in_files": 1
+    },
+    {
+      "host": "linear.app",
+      "mentioned_in_files": 2
+    },
+    {
+      "host": "mail.google.com",
+      "mentioned_in_files": 2
+    },
+    {
+      "host": "mcp.linear.app",
+      "mentioned_in_files": 1
+    },
+    {
+      "host": "oauth2.googleapis.com",
+      "mentioned_in_files": 1
+    },
+    {
+      "host": "openidconnect.googleapis.com",
+      "mentioned_in_files": 1
+    },
+    {
+      "host": "platform.claude.com",
+      "mentioned_in_files": 2
+    },
+    {
+      "host": "raw.githubusercontent.com",
+      "mentioned_in_files": 1
+    },
+    {
+      "host": "sheets.googleapis.com",
+      "mentioned_in_files": 1
+    },
+    {
+      "host": "slack.com",
+      "mentioned_in_files": 2
+    },
+    {
+      "host": "www.anthropic.com",
+      "mentioned_in_files": 1
+    },
+    {
+      "host": "www.googleapis.com",
+      "mentioned_in_files": 3
+    },
+    {
+      "host": "www.imy.se",
+      "mentioned_in_files": 1
+    }
+  ],
+  "provider_sdk_methods": [
+    {
+      "method": "beta.agents.archive",
+      "mentioned_in_files": 4
+    },
+    {
+      "method": "beta.agents.create",
+      "mentioned_in_files": 4
+    },
+    {
+      "method": "beta.agents.retrieve",
+      "mentioned_in_files": 6
+    },
+    {
+      "method": "beta.agents.update",
+      "mentioned_in_files": 3
+    },
+    {
+      "method": "beta.environments.create",
+      "mentioned_in_files": 3
+    },
+    {
+      "method": "beta.environments.retrieve",
+      "mentioned_in_files": 4
+    },
+    {
+      "method": "beta.files.download",
+      "mentioned_in_files": 4
+    },
+    {
+      "method": "beta.files.list",
+      "mentioned_in_files": 1
+    },
+    {
+      "method": "beta.files.retrieveMetadata",
+      "mentioned_in_files": 1
+    },
+    {
+      "method": "beta.files.upload",
+      "mentioned_in_files": 2
+    },
+    {
+      "method": "beta.memoryStores.create",
+      "mentioned_in_files": 2
+    },
+    {
+      "method": "beta.memoryStores.memories.create",
+      "mentioned_in_files": 2
+    },
+    {
+      "method": "beta.memoryStores.memories.list",
+      "mentioned_in_files": 1
+    },
+    {
+      "method": "beta.memoryStores.memories.retrieve",
+      "mentioned_in_files": 1
+    },
+    {
+      "method": "beta.memoryStores.memories.update",
+      "mentioned_in_files": 2
+    },
+    {
+      "method": "beta.memoryStores.memoryVersions.list",
+      "mentioned_in_files": 1
+    },
+    {
+      "method": "beta.memoryStores.memoryVersions.retrieve",
+      "mentioned_in_files": 1
+    },
+    {
+      "method": "beta.sessions.archive",
+      "mentioned_in_files": 4
+    },
+    {
+      "method": "beta.sessions.create",
+      "mentioned_in_files": 3
+    },
+    {
+      "method": "beta.sessions.events.list",
+      "mentioned_in_files": 5
+    },
+    {
+      "method": "beta.sessions.events.send",
+      "mentioned_in_files": 5
+    },
+    {
+      "method": "beta.sessions.events.stream",
+      "mentioned_in_files": 2
+    },
+    {
+      "method": "beta.sessions.resources.add",
+      "mentioned_in_files": 1
+    },
+    {
+      "method": "beta.sessions.resources.list",
+      "mentioned_in_files": 1
+    },
+    {
+      "method": "beta.sessions.retrieve",
+      "mentioned_in_files": 11
+    },
+    {
+      "method": "beta.sessions.threads.events.list",
+      "mentioned_in_files": 1
+    },
+    {
+      "method": "beta.sessions.threads.events.stream",
+      "mentioned_in_files": 1
+    },
+    {
+      "method": "beta.sessions.threads.list",
+      "mentioned_in_files": 2
+    },
+    {
+      "method": "beta.sessions.threads.retrieve",
+      "mentioned_in_files": 3
+    },
+    {
+      "method": "beta.sessions.update",
+      "mentioned_in_files": 1
+    },
+    {
+      "method": "beta.vaults.archive",
+      "mentioned_in_files": 1
+    },
+    {
+      "method": "beta.vaults.create",
+      "mentioned_in_files": 1
+    },
+    {
+      "method": "beta.vaults.credentials.archive",
+      "mentioned_in_files": 2
+    },
+    {
+      "method": "beta.vaults.credentials.create",
+      "mentioned_in_files": 2
+    },
+    {
+      "method": "beta.vaults.credentials.list",
+      "mentioned_in_files": 2
+    },
+    {
+      "method": "beta.vaults.credentials.retrieve",
+      "mentioned_in_files": 1
+    },
+    {
+      "method": "beta.vaults.retrieve",
+      "mentioned_in_files": 2
+    },
+    {
+      "method": "beta.webhooks.unwrap",
+      "mentioned_in_files": 1
+    },
+    {
+      "method": "messages.create",
+      "mentioned_in_files": 2
+    }
+  ]
+}

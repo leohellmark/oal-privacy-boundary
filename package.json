@@ -3,7 +3,18 @@
   "version": "0.1.0",
   "private": false,
   "type": "module",
-  "exports": { ".": "./src/index.ts" },
-  "dependencies": { "zod": "^4.4.3" },
-  "license": "MIT"
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {},
+  "license": "MIT",
+  "scripts": {
+    "test": "bun test src/index.test.ts",
+    "verify": "bun verify.ts"
+  },
+  "devDependencies": {
+    "@anthropic-ai/sdk": "0.133.0",
+    "zod": "^4.4.3"
+  },
+  "description": "Oal's application-side data boundary: what Oal sends to Claude, in a small, dependency-free, testable module."
 }
