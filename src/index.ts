@@ -4,7 +4,7 @@
  * repository mount or an agent's own tools. Those surfaces need separate
  * disclosure and network controls.
  */
-export const PRIVACY_POLICY_VERSION = "2026-10-19.2";
+export const PRIVACY_POLICY_VERSION = "2026-10-19.3";
 
 export const DATA_TRANSFERS = {
   google_read_to_claude: {
@@ -104,8 +104,8 @@ export const DATA_TRANSFERS = {
   },
   claude_next_message_suggestions: {
     destination: "Anthropic Messages API",
-    purpose: "Suggest what the owner might say next, when the owner opens the suggestions",
-    categories: ["the last 12 messages of the conversation, each clipped to 700 characters"],
+    purpose: "Suggest what the owner might say next: asked once after each reply in the owner's own chat, then remembered in the owner's browser",
+    categories: ["the last 8 messages of the conversation, each clipped to 600 characters"],
   },
   claude_standard_classification: {
     destination: "Anthropic Messages API",

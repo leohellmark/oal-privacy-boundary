@@ -4,7 +4,7 @@ This release contains the small, public part of Oal's application-side data boun
 
 ## Start here
 
-1. `bun install && bun test` runs the boundary's tests (25 at this release, including real provider-SDK requests passing through the transport).
+1. `bun install && bun run test` runs the boundary's tests (25 at this release, including real provider-SDK requests passing through the transport).
 2. `bun verify.ts` recomputes the SHA-256 of every file against `source-manifest.json`. A pass means these are the exported bytes.
 3. `bun transfers.ts` prints every declared transfer and every provider request path, generated from the source.
 4. Read `src/index.ts` (about 370 lines). It has four parts: the declared transfers, the declared endpoint list, the credential shapes, and the transport.
@@ -46,13 +46,13 @@ Two checks run in the private application's build and are included for review in
 
 ## What changed since the first export (29 September 2026)
 
-- **Declared transfers grew from 5 to 24.** The first export named five: the Claude message, agent configuration, tool results, work preferences and the GitHub repository path. It did not name Google reads and writes, Slack replies and direct messages, discovery, tool confirmations, browser review images or project memory (all declared in the private source by 3 October and published now), and, new on 19 October: session management, the recent-messages record handed to a replacement session, file uploads, the credential vault, the sandbox environment, scheduled routines, the next-message suggestions, the optional lead-model classification, the developer judging tool, workload-identity authentication and the optional memory consolidation. Before this release the suggestions feature sent up to 12 recent messages to the Messages API without being declared and without the credential gate.
+- **Declared transfers grew from 5 to 24.** The first export named five: the Claude message, agent configuration, tool results, work preferences and the GitHub repository path. It did not name Google reads and writes, Slack replies and direct messages, discovery, tool confirmations, browser review images or project memory (all declared in the private source by 3 October and published now), and, new on 19 October: session management, the recent-messages record handed to a replacement session, file uploads, the credential vault, the sandbox environment, scheduled routines, the next-message suggestions, the optional lead-model classification, the developer judging tool, workload-identity authentication and the optional memory consolidation. Before the 19 October release the suggestions feature sent up to 12 recent messages to the Messages API without being declared and without the credential gate; it now sends the last 8, each clipped to 600 characters, once per reply, and describes that in its declaration.
 - **Credential shapes grew from two to nine families.** The first export had one list of eight key prefixes and the bearer-token rule. There are now nine families covering 19 key prefixes (including Slack app and user tokens, Google OAuth tokens, GitLab and npm tokens) and eight other formats: Stripe keys, AWS key ids, Google API keys, JSON web tokens, private key blocks, Slack webhook URLs, URLs with embedded credentials and bearer tokens. One list drives both refusal and scrubbing.
 - **The declared endpoint list, strict mode and the inventory test are new.**
 - **The build check now covers all of `src/` and `scripts/`**, not three folders, and refuses the SDK in browser-reachable code.
 - **The package declares no runtime dependencies**; tests need the provider SDK and `zod` (dev only).
 - **`verify.ts`, `transfers.ts` and `inventory.json` are new.**
-- **The policy version is `2026-10-19.2`.** It is part of the source and changes when a transfer or a rule changes.
+- **The policy version is `2026-10-19.3`.** It is part of the source and changes when a transfer or a rule changes.
 
 ## The opt-in work-preference path
 

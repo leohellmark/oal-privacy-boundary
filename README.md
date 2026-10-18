@@ -15,7 +15,7 @@ What this does **not** prove: what is deployed right now, what the provider does
 
 ```sh
 bun install
-bun test           # credential rules, transport rules, the endpoint list, strict mode
+bun run test       # credential rules, transport rules, the endpoint list, strict mode
 bun verify.ts      # checks every file here against source-manifest.json (SHA-256)
 bun transfers.ts   # prints the declared transfers and request paths, generated from the source
 ```
